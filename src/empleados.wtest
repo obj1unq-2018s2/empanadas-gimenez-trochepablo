@@ -1,12 +1,36 @@
 import empleados.*
 
-test "sueldo de Baigorria y de Gimenez" {
-	baigorria.venderEmpanada()
-	baigorria.venderEmpanada()
-	assert.equals(1530, baigorria.sueldo())
-	baigorria.venderEmpanada()
-	assert.equals(1545, baigorria.sueldo())
-	assert.equals(15000, gimenez.sueldo())
-	gimenez.sueldo(12000)
-	assert.equals(12000, gimenez.sueldo())
+describe "cobrar sueldos y pagar deudas" {
+	
+		
+ 	test "baigorria cobra sueldo; dinero 15000" {
+ 		galvan.pagarA(baigorria)
+		assert.equals(15000, baigorria.totalDinero())
+	}
+	
+	test "sueldo inicial de baigorria 15.000" {
+		assert.equals(15000, baigorria.sueldo())
+	}
+	
+	test "endeudarse hasta las tetas, bicicleta financiera 30025"{
+		baigorria.gasta(10000)
+		baigorria.gasta(25)
+		baigorria.gasta(20000)
+		assert.equals(30025, baigorria.totalDeuda())
+	}
+	
+	test "se endeuda 30000 y paga 15.000; deuda 5000; dinero 0"{
+		baigorria.gasta(15000)
+		baigorria.gasta(5000)
+		galvan.pagarA(baigorria)
+		assert.equals(5000, baigorria.totalDeuda())
+		assert.equals(0, baigorria.totalDinero())
+	}
+	
+	test "se endeuda 10000 pero cobra y sobra guita; dinero 5000"{
+		baigorria.gasta(10000)
+		galvan.pagarA(baigorria)
+		assert.equals(0, baigorria.totalDeuda())
+		assert.equals(5000, baigorria.totalDinero())
+	}
 }
